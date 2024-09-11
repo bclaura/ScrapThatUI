@@ -1,7 +1,32 @@
 <h1 class="text-center mt-3">Toate Produsele</h1>
 
+<div class="container">
+<!-- Items Per Page Selector -->
+<div class="d-flex justify-content-start mt-4 mb-4">
+  <label for="productsPerPageSelect">Products per page: </label>
+  <div class="ms-2">
+    <select id="productsPerPageSelect" ngModel="productsPerPage" (change)="onProductsPerPageChange($event)">
+      <option *ngFor="let option of itemsPerPageOptions" [value]="option">{{ option }}</option>
+    </select>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center align-items-center mt-4 mb-4">
+  <div *ngIf="totalProducts > productsPerPage" class="pagination d-flex align-items-center">
+    <div class="me-2">
+      <button [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)" class="btn btn-outline-secondary">Previous</button>
+    </div>
+    <span class="fs-6">Page {{ currentPage }} of {{ totalPages }}</span>
+    <div class="ms-2">
+      <button [disabled]="currentPage === totalPages" (click)="onPageChange(currentPage + 1)" class="btn btn-outline-secondary">Next</button>
+    </div>
+  </div>
+</div>
+
+  </div>
+  
 <div class="container mt-4">
-  <div class="row" *ngIf="products?.length != 0" >
+  <div class="row justify-content-center" *ngIf="products?.length != 0" >
     <div *ngFor="let product of products" class="card m-1" style="width: 18rem">
       <img [src]="product.image" class="card-img-top" alt="..." />
       <div class="card-body">
@@ -14,25 +39,20 @@
     </div>
   </div>
 
-  <div *ngIf="products?.length === 0">
-    <p>No products available.</p>
+  <div *ngIf="products?.length === 0" class="d-flex justify-content-center align-items-center">
+    <img src="assets/images/404products.png" alt="404 Not Found" style="max-width:  50%; height: auto;">
   </div>
 
-  <div class="d-flex justify-content-center mt-4 mb-4">
-    <div *ngIf="totalProducts > productsPerPage" class="pagination">
-      <button
-        [disabled]="currentPage === 1"
-        (click)="onPageChange(currentPage - 1)"
-      >
-        Previous
-      </button>
-      <span>Page {{ currentPage }} of {{ totalPages }}</span>
-      <button
-        [disabled]="currentPage === totalPages"
-        (click)="onPageChange(currentPage + 1)"
-      >
-        Next
-      </button>
+  <div class="d-flex justify-content-center align-items-center mt-4 mb-4">
+    <div *ngIf="totalProducts > productsPerPage" class="pagination d-flex align-items-center">
+      <div class="me-2">
+        <button [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)" class="btn btn-outline-secondary">Previous</button>
+      </div>
+      <span class="fs-6">Page {{ currentPage }} of {{ totalPages }}</span>
+      <div class="ms-2">
+        <button [disabled]="currentPage === totalPages" (click)="onPageChange(currentPage + 1)" class="btn btn-outline-secondary">Next</button>
+      </div>
     </div>
   </div>
+
 </div>

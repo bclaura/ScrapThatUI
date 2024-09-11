@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
 })
 export class ProductService {
 
-  private apiUrl = `https://localhost:7145/api/Products`;
+  private apiUrl = `http://localhost:5252/api/Products`;
   private productsCache: Product[] | null = null;
 
   constructor(private http: HttpClient) { }

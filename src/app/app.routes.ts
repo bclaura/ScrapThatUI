@@ -35,6 +35,11 @@ export const routes: Routes = [
     {
         path: 'all',
         component: AllListComponent
-    }
+    },
+    {
+        path: 'all/:page', 
+        component: AllListComponent 
+    },
+    {  path: 'all', redirectTo: 'all/1', pathMatch: 'full' },
 
 ];
