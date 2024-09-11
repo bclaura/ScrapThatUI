@@ -13,24 +13,77 @@ export const routes: Routes = [
         component: LaptopsListComponent
     },
     {
+        path: 'laptops/:page',
+        component: LaptopsListComponent
+    },
+    {
+        path: 'laptops',
+        redirectTo: 'laptops/1',
+        pathMatch: "full"
+    },
+    {
         path: 'bluetooth-headsets',
         component: BluetoothHeadsetsListComponent
+    },
+    {
+        path: 'bluetooth-headsets/:page',
+        component: BluetoothHeadsetsListComponent
+    },
+    {
+        path: 'bluetooth-headsets',
+        redirectTo: 'bluetooth-headsets/1',
+        pathMatch: 'full'
     },
     {
         path: 'fitness',
         component: FitnessBraceletsListComponent
     },
     {
+        path: 'fitness/:page',
+        component: FitnessBraceletsListComponent
+    },
+    {
+        path: 'fitness',
+        redirectTo: 'fitness/1',
+        pathMatch: 'full'
+    },
+    {
         path: 'phones',
         component: PhonesListComponent
+    },
+    {
+        path: 'phones/:page',
+        component: PhonesListComponent
+    },
+    {
+        path: 'phones',
+        redirectTo: 'phones/1',
+        pathMatch: 'full'
     },
     {
         path: 'smartwatch',
         component: SmartwatchListComponent
     },
     {
+        path: 'smartwatch/:page',
+        component: SmartwatchListComponent
+    },
+    {
+        path: 'smartwatch',
+        redirectTo: 'smartwatch/1',
+        pathMatch: 'full'
+    },
+    {
         path: 'tablets',
         component: TabletsListComponent
+    },
+    {
+        path: 'tablets/:page',
+        component: TabletsListComponent
+    },
+    {  path: 'tablets', 
+        redirectTo: 'tablets/1', 
+        pathMatch: 'full' 
     },
     {
         path: 'all',
@@ -40,6 +93,10 @@ export const routes: Routes = [
         path: 'all/:page', 
         component: AllListComponent 
     },
-    {  path: 'all', redirectTo: 'all/1', pathMatch: 'full' },
+    {  path: 'all', 
+        redirectTo: 'all/1', 
+        pathMatch: 'full' 
+    },
+
 
 ];

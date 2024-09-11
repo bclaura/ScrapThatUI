@@ -17,4 +17,28 @@ export class ProductService {
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.apiUrl);
   }
+
+  getLaptops(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.apiUrl + '/laptops');
+  }
+
+  getPhones(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.apiUrl + '/phones');
+  }
+
+  getTablets(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.apiUrl + '/tablets');
+  }
+
+  getSmartwatches(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.apiUrl + '/smartwatches');
+  }
+
+  getFitnessBracelets(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.apiUrl + '/fitness-bracelets');
+  }
+
+  getWirelessHeadphones(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.apiUrl + '/wireless-headphones');
+  }
 }
