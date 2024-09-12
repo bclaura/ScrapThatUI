@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from '../models/product.model';
 import { environment } from '../../environments/environment';
+import { ProductPriceHistory } from '../models/productPriceHistory.model';
 
 @Injectable({
   providedIn: 'root'
@@ -40,5 +41,13 @@ export class ProductService {
 
   getWirelessHeadphones(): Observable<Product[]> {
     return this.http.get<Product[]>(this.apiUrl + '/wireless-headphones');
+  }
+
+  getProductPriceHistory(productId: number): Observable<ProductPriceHistory[]> {
+    return this.http.get<ProductPriceHistory[]>(this.apiUrl + `/pricehistory/${productId}`);
+  }
+
+  getProductDetails(productId: number): Observable<Product> {
+    return this.http.get<Product>(this.apiUrl + `/product/${productId}`);
   }
 }

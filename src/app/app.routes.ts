@@ -6,6 +6,7 @@ import { PhonesListComponent } from './features/phones/phones-list/phones-list.c
 import { SmartwatchListComponent } from './features/smartwatch/smartwatch-list/smartwatch-list.component';
 import { TabletsListComponent } from './features/tablets/tablets-list/tablets-list.component';
 import { AllListComponent } from './features/all/all-list/all-list.component';
+import { ProductDetailComponent } from './features/product-detail/product-detail.component';
 
 export const routes: Routes = [
     {
@@ -22,6 +23,10 @@ export const routes: Routes = [
         pathMatch: "full"
     },
     {
+        path: 'laptops/p/:id',
+        component: ProductDetailComponent
+    },
+    {
         path: 'bluetooth-headsets',
         component: BluetoothHeadsetsListComponent
     },
@@ -33,6 +38,10 @@ export const routes: Routes = [
         path: 'bluetooth-headsets',
         redirectTo: 'bluetooth-headsets/1',
         pathMatch: 'full'
+    },
+    {
+        path: 'bluetooth-headsets/p/:id',
+        component: ProductDetailComponent
     },
     {
         path: 'fitness',
@@ -48,6 +57,10 @@ export const routes: Routes = [
         pathMatch: 'full'
     },
     {
+        path: 'fitness/p/:id',
+        component: ProductDetailComponent
+    },
+    {
         path: 'phones',
         component: PhonesListComponent
     },
@@ -59,6 +72,10 @@ export const routes: Routes = [
         path: 'phones',
         redirectTo: 'phones/1',
         pathMatch: 'full'
+    },
+    {
+        path: 'phones/p/:id',
+        component: ProductDetailComponent
     },
     {
         path: 'smartwatch',
@@ -74,6 +91,10 @@ export const routes: Routes = [
         pathMatch: 'full'
     },
     {
+        path: 'smartwatch/p/:id',
+        component: ProductDetailComponent
+    },
+    {
         path: 'tablets',
         component: TabletsListComponent
     },
@@ -86,6 +107,10 @@ export const routes: Routes = [
         pathMatch: 'full' 
     },
     {
+        path: 'tablets/p/:id',
+        component: ProductDetailComponent
+    },
+    {
         path: 'all',
         component: AllListComponent
     },
@@ -96,6 +121,10 @@ export const routes: Routes = [
     {  path: 'all', 
         redirectTo: 'all/1', 
         pathMatch: 'full' 
+    },
+    {
+        path: 'all/p/:id',
+        component: ProductDetailComponent
     },
 
 

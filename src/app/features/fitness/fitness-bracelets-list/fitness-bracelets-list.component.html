@@ -26,19 +26,24 @@
         
           </div>
           
-        <div class="container mt-4">
-          <div class="row justify-content-center" *ngIf="products?.length != 0" >
-            <div *ngFor="let product of products" class="card m-1" style="width: 18rem">
-              <img [src]="product.image" class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title fs-6">{{ product.name }}</h5>
-                <p class="card-text">{{ product.price }} Lei</p>
-                <a (click)="goToLink(product.websiteUrl)" class="btn btn-primary"
-                  >Click aici</a
-                >
+          <div class="container mt-4">
+            <div class="row justify-content-center" *ngIf="products?.length != 0" >
+              <div *ngFor="let product of products" class="card m-1" style="width: 18rem">
+                <a [routerLink]="['/fitness','p', product.productId]">
+                  <img [src]="product.image" class="card-img-top" alt="..." />
+                </a>
+                <div class="card-body d-flex flex-column">
+                  <h5 class="card-title fs-6">{{ product.name | slice:0:130 }}{{product.name.length > 130 ? '...' : ''}}</h5>
+                  <div class="mt-auto">
+                    <p class="card-text" style="font-weight: 700; color: red">{{ product.price }} Lei</p>
+                    <div class="d-flex justify-content-around">
+                      <a (click)="goToLink(product.websiteUrl)" class="btn btn-primary">Cumpara</a>
+                      <a [routerLink]="['/fitness','p', product.productId]" class="btn btn-success">Verifica</a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
         
           <div *ngIf="products?.length === 0" class="d-flex justify-content-center align-items-center">
             <img src="assets/images/404products.png" alt="404 Not Found" style="max-width:  50%; height: auto;">

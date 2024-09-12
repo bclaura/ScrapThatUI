@@ -1,0 +1,19 @@
+<div class="container">
+
+    <div *ngIf="product">
+        <h5 class="mt-4 text-center">{{product.name}}</h5>
+        <img [src]="product.image" alt="{{product.name}}" style="width: 25rem;">
+        <p>Pret: {{product.price}} Lei</p>
+    </div>
+
+    <div *ngIf="priceHistory.length">
+        <h3>Istoricul pretului
+            <ul>
+                <li *ngFor="let history of priceHistory">
+                    {{history.dateChecked | date: 'dd/MM/yy'}}: {{history.price}} Lei
+                </li>
+            </ul>
+        </h3>
+
+    </div>
+</div>
