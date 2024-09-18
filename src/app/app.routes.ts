@@ -7,6 +7,10 @@ import { SmartwatchListComponent } from './features/smartwatch/smartwatch-list/s
 import { TabletsListComponent } from './features/tablets/tablets-list/tablets-list.component';
 import { AllListComponent } from './features/all/all-list/all-list.component';
 import { ProductDetailComponent } from './features/product-detail/product-detail.component';
+import { GamesListComponent } from './features/games/games-list/games-list.component';
+import { MangaListComponent } from './features/manga/manga-list/manga-list.component';
+import { NavbarComponent } from './core/components/navbar/navbar.component';
+import { SearchResultsComponent } from './core/components/search-results/search-results.component';
 
 export const routes: Routes = [
     {
@@ -126,6 +130,44 @@ export const routes: Routes = [
         path: 'all/p/:id',
         component: ProductDetailComponent
     },
+    {
+        path: 'games',
+        component: GamesListComponent
+    },
+    {
+        path: 'games/:page',
+        component: GamesListComponent
+    },
+    {
+        path: 'games',
+        redirectTo: 'games/1',
+        pathMatch: "full"
+    },
+    {
+        path: 'games/p/:id',
+        component: ProductDetailComponent
+    },
+    {
+        path: 'manga',
+        component: MangaListComponent
+    },
+    {
+        path: 'manga/:page',
+        component: MangaListComponent
+    },
+    {
+        path: 'manga',
+        redirectTo: 'manga/1',
+        pathMatch: "full"
+    },
+    {
+        path: 'manga/p/:id',
+        component: ProductDetailComponent
+    },
+    {
+        path: 'search',
+        component: SearchResultsComponent
+    }
 
 
 ];
