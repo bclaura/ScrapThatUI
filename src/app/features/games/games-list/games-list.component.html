@@ -12,7 +12,7 @@
           </div>
           <label for="platformFilter" class="ms-2">Platforma:</label>
           <div class="ms-2">
-            <select class="form-control" [(ngModel)]="selectedPlatform" (change)="onPlatformChange(selectedPlatform)">
+            <select id="platformSelect" class="form-control" [(ngModel)]="selectedPlatform" (change)="onPlatformChange()">
               <option value="">Toate</option>
               <option *ngFor="let platform of platforms" [value]="platform">{{ platform }}</option>
             </select>

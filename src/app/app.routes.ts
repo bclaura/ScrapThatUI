@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { LaptopsListComponent } from './features/laptops/laptops-list/laptops-list.component';
 import { BluetoothHeadsetsListComponent } from './features/bluetooth-headsets/bluetooth-headsets-list/bluetooth-headsets-list.component';
 import { FitnessBraceletsListComponent } from './features/fitness/fitness-bracelets-list/fitness-bracelets-list.component';
@@ -11,6 +11,7 @@ import { GamesListComponent } from './features/games/games-list/games-list.compo
 import { MangaListComponent } from './features/manga/manga-list/manga-list.component';
 import { NavbarComponent } from './core/components/navbar/navbar.component';
 import { SearchResultsComponent } from './core/components/search-results/search-results.component';
+import { NgModule } from '@angular/core';
 
 export const routes: Routes = [
     {
@@ -136,6 +137,14 @@ export const routes: Routes = [
     },
     {
         path: 'games/:page',
+        component: GamesListComponent
+    },
+    {
+        path: 'games/:platform',
+        component: GamesListComponent
+    },
+    {
+        path: 'games/:platform/:page',
         component: GamesListComponent
     },
     {

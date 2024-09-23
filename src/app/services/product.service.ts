@@ -15,40 +15,86 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.apiUrl);
+  getProducts(page: number, pageSize: number): Observable<any> {
+    return this.http.get<any>(this.apiUrl, {
+      params: {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      }
+    });
   }
 
-  getLaptops(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.apiUrl + '/laptops');
+  getLaptops(page: number, pageSize: number): Observable<any> {
+    return this.http.get<any>(this.apiUrl + '/laptops', {
+      params: {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      }
+    });
   }
 
-  getPhones(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.apiUrl + '/phones');
+  getPhones(page: number, pageSize: number): Observable<any> {
+    return this.http.get<any>(this.apiUrl + '/phones', {
+      params: {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      }
+    });
   }
 
-  getTablets(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.apiUrl + '/tablets');
+  getTablets(page: number, pageSize: number): Observable<any> {
+    return this.http.get<any>(this.apiUrl + '/tablets', {
+      params: {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      }
+    });
   }
 
-  getSmartwatches(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.apiUrl + '/smartwatches');
+  getSmartwatches(page: number, pageSize: number): Observable<any> {
+    return this.http.get<any>(this.apiUrl + '/smartwatches', {
+      params: {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      }
+    });
   }
 
-  getFitnessBracelets(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.apiUrl + '/fitness-bracelets');
+  getFitnessBracelets(page: number, pageSize: number): Observable<any> {
+    return this.http.get<any>(this.apiUrl + '/fitness-bracelets', {
+      params: {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      }
+    });
   }
 
-  getWirelessHeadphones(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.apiUrl + '/wireless-headphones');
+  getWirelessHeadphones(page: number, pageSize: number): Observable<any> {
+    return this.http.get<any>(this.apiUrl + '/wireless-headphones', {
+      params: {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      }
+    });
   }
 
-  getGames(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.apiUrl + '/games');
+  getGames(platform: string, page: number, pageSize: number): Observable<any> {
+    return this.http.get<any>(this.apiUrl + '/games', {
+      params: {
+        platform: platform || '',
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      }
+    });
   }
 
-  getManga(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.apiUrl + '/manga');
+  getManga(page: number, pageSize: number): Observable<any> {
+    return this.http.get<any>(this.apiUrl + '/manga', {
+      params: {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      }
+    });
   }
 
   getProductPriceHistory(productId: number): Observable<ProductPriceHistory[]> {

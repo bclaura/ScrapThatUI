@@ -37,15 +37,10 @@ export class TabletsListComponent implements OnInit {
   }
 
     loadProducts(): void {
-      this.productService.getTablets().subscribe({
-        next: (data: Product[] | null) => {
-          if(data) {
-            this.totalProducts = data.length;
-            this.products = data.slice((this.currentPage - 1) * this.productsPerPage, this.currentPage * this.productsPerPage);
-          } else {
-            this.totalProducts = 0;
-            this.products = [];
-          }
+      this.productService.getTablets(this.currentPage, this.productsPerPage).subscribe({
+        next: (response: any) => {
+          this.products = response.products;
+          this.totalProducts = response.totalCount;
         },
         error: (err) => {
           console.error('Error fetching products:', err);

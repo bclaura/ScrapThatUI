@@ -6,4 +6,5 @@ export interface Product {
     image: string;
     websiteUrl: string;
     categoryName: string;
+    platform: string;
 }
