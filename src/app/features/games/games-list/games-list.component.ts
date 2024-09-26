@@ -22,6 +22,8 @@ export class GamesListComponent implements OnInit {
   platforms = ['PlayStation', 'Nintendo', 'Xbox', 'PC'];
   selectedPlatform = '';
   filteredProducts?: Product[];
+  selectedDays: number = 7;
+  selectedSort: string = '';
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute,
@@ -47,7 +49,7 @@ export class GamesListComponent implements OnInit {
     console.log('Loading products for: Platform:', this.selectedPlatform, 'Page:', this.currentPage);
     const platformToQuery = this.selectedPlatform === 'Toate' ? '' : this.selectedPlatform;
     
-    this.productService.getGames(platformToQuery, this.currentPage, this.productsPerPage).subscribe({
+    this.productService.getGames(platformToQuery, this.currentPage, this.productsPerPage, +this.selectedDays, this.selectedSort).subscribe({
       next: (response: any) => {
         console.log('API Response:', response);
         if(response && response.products)
@@ -75,32 +77,64 @@ export class GamesListComponent implements OnInit {
     this.currentPage = page;
     const platformSegment = this.selectedPlatform ? this.selectedPlatform : ''; // Empty string for "Toate"
     if(platformSegment) {
-      this.router.navigate(['/games', platformSegment, this.currentPage]);
+      this.router.navigate(['/games', platformSegment, this.currentPage, {days: this.selectedDays, sort: this.selectedSort}]);
     } else {
-      this.router.navigate(['/games', this.currentPage]); // Remove double slash if no platform
+      this.router.navigate(['/games', this.currentPage, {days: this.selectedDays, sort: this.selectedSort}]); // Remove double slash if no platform
     }
     this.loadProducts();
   }
 
+
   onProductsPerPageChange(event: any): void {
     this.productsPerPage = event.target.value;
     this.currentPage = 1; // Reset to first page
-    this.router.navigate(['/games', this.selectedPlatform || '', this.currentPage]);
+    this.router.navigate(['/games', this.selectedPlatform || '', this.currentPage, {
+      page: this.currentPage,
+      days: this.selectedDays,
+      sort: this.selectedSort
+    }]);
     this.loadProducts();
   }
 
-  goToLink(url: string) {
-    window.open(url, "_blank");
+  onDaysChange(): void {
+    this.currentPage = 1;
+    this.router.navigate(['/games', {
+      page: this.currentPage,
+      days: this.selectedDays,
+      sort: this.selectedSort
+    }]);
+    this.loadProducts();
+  }
+
+  onSortChange(): void {
+    this.currentPage = 1;
+    this.router.navigate(['/games', {
+      page: this.currentPage,
+      days: this.selectedDays,
+      sort: this.selectedSort
+    }]);
+    this.loadProducts();
   }
 
   onPlatformChange(): void {
     this.currentPage = 1;
     if(this.selectedPlatform && this.selectedPlatform !== 'Toate') {
-      this.router.navigate(['/games', this.selectedPlatform, this.currentPage]);
+      this.router.navigate(['/games', this.selectedPlatform, this.currentPage, {
+        days: this.selectedDays,
+        sort: this.selectedSort
+      }]);
     } else {
-      this.router.navigate(['/games', this.currentPage]);
+      this.router.navigate(['/games', this.currentPage, {
+        days: this.selectedDays,
+        sort: this.selectedSort
+      }]);
     }
     this.loadProducts();
+  }
+
+  
+  goToLink(url: string) {
+    window.open(url, "_blank");
   }
 
 }

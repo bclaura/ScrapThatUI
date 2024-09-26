@@ -5,11 +5,12 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Router } from '@angular/router';
 import { query } from 'express';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-fitness-bracelets-list',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, RouterOutlet],
+  imports: [CommonModule, RouterLink, RouterLinkActive, RouterOutlet, FormsModule],
   templateUrl: './fitness-bracelets-list.component.html',
   styleUrl: './fitness-bracelets-list.component.css'
 })
@@ -19,6 +20,8 @@ export class FitnessBraceletsListComponent implements OnInit {
   productsPerPage: number = 60;
   totalProducts: number = 0;
   itemsPerPageOptions: number[] = [12, 24, 48, 60];
+  selectedDays: number = 7;
+  selectedSort: string = '';
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute,
@@ -38,7 +41,7 @@ export class FitnessBraceletsListComponent implements OnInit {
   }
 
   loadProducts(): void {
-    this.productService.getFitnessBracelets(this.currentPage, this.productsPerPage).subscribe({
+    this.productService.getFitnessBracelets(this.currentPage, this.productsPerPage, +this.selectedDays, this.selectedSort).subscribe({
       next: (response: any) => {
         this.products = response.products;
         this.totalProducts = response.totalCount;
@@ -53,7 +56,12 @@ export class FitnessBraceletsListComponent implements OnInit {
 
   onPageChange(page: number): void {
     this.currentPage = page;
-    this.router.navigate(['/fitness', page]);
+    this.router.navigate(['/fitness', 
+    {
+      page: this.currentPage,
+      days: this.selectedDays,
+      sort: this.selectedSort
+    }]);
     this.loadProducts();
   }
 
@@ -61,6 +69,26 @@ export class FitnessBraceletsListComponent implements OnInit {
     this.productsPerPage = event.target.value;
     this.currentPage = 1;
     this.router.navigate(['/fitness', this.currentPage]);
+    this.loadProducts();
+}
+
+  onDaysChange(): void {
+    this.currentPage = 1;
+    this.router.navigate(['/fitness', {
+      page: this.currentPage,
+      days: this.selectedDays,
+      sort: this.selectedSort
+    }]);
+    this.loadProducts();
+  }
+
+  onSortChange(): void {
+    this.currentPage = 1;
+    this.router.navigate(['/fitness', {
+      page: this.currentPage,
+      days: this.selectedDays,
+      sort: this.selectedSort
+    }]);
     this.loadProducts();
   }
 

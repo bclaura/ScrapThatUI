@@ -7,4 +7,5 @@ export interface Product {
     websiteUrl: string;
     categoryName: string;
     platform: string;
+    percentageChange: number;
 }

@@ -2,33 +2,66 @@
     <h1 class="mt-5 text-center">Casti Bluetooth</h1>
 
     <div class="container">
-    <!-- Items Per Page Selector -->
-    <div class="d-flex justify-content-start mt-4 mb-4">
-      <label for="productsPerPageSelect">Products per page: </label>
-      <div class="ms-2">
-        <select id="productsPerPageSelect" ngModel="productsPerPage" (change)="onProductsPerPageChange($event)">
-          <option *ngFor="let option of itemsPerPageOptions" [value]="option">{{ option }}</option>
+      <!-- Items Per Page Selector -->
+      <div class="d-flex justify-content-start mt-4 mb-4">
+        <label for="productsPerPageSelect">Produse pe pagina: </label>
+        <div class="ms-2">
+          <select id="productsPerPageSelect" [(ngModel)]="productsPerPage" (change)="onProductsPerPageChange($event)">
+            <option *ngFor="let option of itemsPerPageOptions" [value]="option">{{ option }}</option>
+          </select>
+        </div>
+      </div>
+      
+      <div>
+        <label for="daysSelect">Verifica schimbari pe o perioada de:</label>
+        <select id="daysSelect" class="form-select ms-2" [(ngModel)]="selectedDays" (change)="onDaysChange()">
+          <option value="7">7 zile</option>
+          <option value="30">30 zile</option>
+          <option value="180">180 zile</option>
+          <option value="360">360 zile</option>
         </select>
       </div>
-    </div>
-    
-    <div class="d-flex justify-content-center align-items-center mt-4 mb-4">
-      <div *ngIf="totalProducts > productsPerPage" class="pagination d-flex align-items-center">
-        <div class="me-2">
-          <button [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)" class="btn btn-outline-secondary">Previous</button>
-        </div>
-        <span class="fs-6">Page {{ currentPage }} of {{ totalPages }}</span>
-        <div class="ms-2">
-          <button [disabled]="currentPage === totalPages" (click)="onPageChange(currentPage + 1)" class="btn btn-outline-secondary">Next</button>
+      
+      <div>
+        <label for="changeFilterSelect">Sorteaza dupa:</label>
+        <select id="changeFilterSelect" class="form-select ms-2" [(ngModel)]="selectedSort" (change)="onSortChange()">
+          <option value="highestIncrease">Cele mai mari majorari</option>
+          <option value="highestDecrease">Cele mai mari reduceri</option>
+          <option value="lowestPrice">Pret crescator</option>
+          <option value="highestPrice">Pret descrescator</option>
+        </select>
+      </div>
+      
+      <div class="d-flex justify-content-center align-items-center mt-4 mb-4">
+        <div *ngIf="totalProducts > productsPerPage" class="pagination d-flex align-items-center">
+          <div class="me-2">
+            <button [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)" class="btn btn-outline-secondary">Previous</button>
+          </div>
+          <span class="fs-6">Page {{ currentPage }} of {{ totalPages }}</span>
+          <div class="ms-2">
+            <button [disabled]="currentPage === totalPages" (click)="onPageChange(currentPage + 1)" class="btn btn-outline-secondary">Next</button>
+          </div>
         </div>
       </div>
-    </div>
-    
-      </div>
+      
+        </div>
       
       <div class="container mt-4">
         <div class="row justify-content-center" *ngIf="products?.length != 0" >
           <div *ngFor="let product of products" class="card m-1" style="width: 18rem">
+                    <!-- Circle Badge for Percentage Change -->
+        <div 
+        class="percentage-circle" 
+        [ngClass]="{
+          'positive-change': product.percentageChange > 0,
+          'negative-change': product.percentageChange < 0,
+          'neutral-change': product.percentageChange === 0 || product.percentageChange === null
+        }">
+        <span>
+          <!-- Always display the percentage, even for neutral changes -->
+          {{ product.percentageChange !== null ? (product.percentageChange > 0 ? '+' : '') + (product.percentageChange | number:'1.0-2') : '0' }}%
+        </span>
+      </div>
             <a [routerLink]="['/bluetooth-headsets','p', product.productId]">
               <img [src]="product.image" class="card-img-top" alt="..." />
             </a>

@@ -5,11 +5,12 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Router } from '@angular/router';
 import { query } from 'express';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-all-list',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, RouterOutlet],
+  imports: [CommonModule, RouterLink, RouterLinkActive, RouterOutlet, FormsModule],
   templateUrl: './all-list.component.html',
   styleUrl: './all-list.component.css'
 })
@@ -19,6 +20,8 @@ export class AllListComponent implements OnInit {
   productsPerPage: number = 60;
   totalProducts: number = 0;
   itemsPerPageOptions: number[] = [12, 24, 48, 60];
+  selectedDays: number = 7;
+  selectedSort: string = '';
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute,
@@ -27,6 +30,8 @@ export class AllListComponent implements OnInit {
 
   ngOnInit(): void {
       this.route.params.subscribe(params => {
+        this.selectedDays = +params['days'] || 7;
+        this.selectedSort = params['sort'] || '';
         const page = +params['page'] || 1;
         this.currentPage = page;
         this.loadProducts();
@@ -38,7 +43,7 @@ export class AllListComponent implements OnInit {
   }
 
     loadProducts(): void {
-      this.productService.getProducts(this.currentPage, this.productsPerPage).subscribe({
+      this.productService.getProducts(this.currentPage, this.productsPerPage, +this.selectedDays, this.selectedSort).subscribe({
         next: (response: any) => {
           this.products = response.products;
           this.totalProducts = response.totalCount;
@@ -51,9 +56,34 @@ export class AllListComponent implements OnInit {
       });
     }
 
+  onDaysChange(): void {
+    this.currentPage = 1;
+    this.router.navigate(['/all', {
+      page: this.currentPage,
+      days: this.selectedDays,
+      sort: this.selectedSort
+    }]);
+    this.loadProducts();
+  }
+
+  onSortChange(): void {
+    this.currentPage = 1;
+    this.router.navigate(['/all', {
+      page: this.currentPage,
+      days: this.selectedDays,
+      sort: this.selectedSort
+    }]);
+    this.loadProducts();
+  }
+
   onPageChange(page: number): void {
     this.currentPage = page;
-    this.router.navigate(['/all', page]);
+    this.router.navigate(['/all', 
+    {
+      page: this.currentPage,
+      days: this.selectedDays,
+      sort: this.selectedSort
+    }]);
     this.loadProducts();
   }
 

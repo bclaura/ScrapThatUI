@@ -4,11 +4,12 @@ import { Product } from '../../../models/product.model';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-phones-list',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, RouterOutlet],
+  imports: [CommonModule, RouterLink, RouterLinkActive, RouterOutlet, FormsModule],
   templateUrl: './phones-list.component.html',
   styleUrl: './phones-list.component.css'
 })
@@ -18,6 +19,8 @@ export class PhonesListComponent implements OnInit {
   productsPerPage: number = 60;
   totalProducts: number = 0;
   itemsPerPageOptions: number[] = [12, 24, 48, 60];
+  selectedDays: number = 7;
+  selectedSort: string = '';
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute,
@@ -38,7 +41,7 @@ export class PhonesListComponent implements OnInit {
   }
 
   loadProducts(): void {
-    this.productService.getPhones(this.currentPage, this.productsPerPage).subscribe({
+    this.productService.getPhones(this.currentPage, this.productsPerPage, +this.selectedDays, this.selectedSort).subscribe({
       next: (response: any) => {
         this.products = response.products;
         this.totalProducts = response.totalCount;
@@ -53,7 +56,12 @@ export class PhonesListComponent implements OnInit {
 
   onPageChange(page: number): void {
     this.currentPage = page;
-    this.router.navigate(['/phones', page]);
+    this.router.navigate(['/phones', 
+    {
+      page: this.currentPage,
+      days: this.selectedDays,
+      sort: this.selectedSort
+    }]);
     this.loadProducts();
   }
 
@@ -63,6 +71,26 @@ export class PhonesListComponent implements OnInit {
     this.router.navigate(['/phones', this.currentPage]);
     this.loadProducts();
 }
+
+  onDaysChange(): void {
+    this.currentPage = 1;
+    this.router.navigate(['/phones', {
+      page: this.currentPage,
+      days: this.selectedDays,
+      sort: this.selectedSort
+    }]);
+    this.loadProducts();
+  }
+
+  onSortChange(): void {
+    this.currentPage = 1;
+    this.router.navigate(['/phones', {
+      page: this.currentPage,
+      days: this.selectedDays,
+      sort: this.selectedSort
+    }]);
+    this.loadProducts();
+  }
 
   goToLink(url: string) {
     window.open(url, "_blank");

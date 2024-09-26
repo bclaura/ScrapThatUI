@@ -15,84 +15,102 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  getProducts(page: number, pageSize: number): Observable<any> {
+  getProducts(page: number, pageSize: number, days: number, sort: string): Observable<any> {
     return this.http.get<any>(this.apiUrl, {
       params: {
         page: page.toString(),
-        pageSize: pageSize.toString()
+        pageSize: pageSize.toString(),
+        days: days.toString(),
+        sort: sort
       }
     });
   }
 
-  getLaptops(page: number, pageSize: number): Observable<any> {
+  getLaptops(page: number, pageSize: number, days: number, sort: string): Observable<any> {
     return this.http.get<any>(this.apiUrl + '/laptops', {
       params: {
         page: page.toString(),
-        pageSize: pageSize.toString()
+        pageSize: pageSize.toString(),
+        days: days.toString(),
+        sort: sort
       }
     });
   }
 
-  getPhones(page: number, pageSize: number): Observable<any> {
+  getPhones(page: number, pageSize: number, days: number, sort: string): Observable<any> {
     return this.http.get<any>(this.apiUrl + '/phones', {
       params: {
         page: page.toString(),
-        pageSize: pageSize.toString()
+        pageSize: pageSize.toString(),
+        days: days.toString(),
+        sort: sort
       }
     });
   }
 
-  getTablets(page: number, pageSize: number): Observable<any> {
+  getTablets(page: number, pageSize: number, days: number, sort: string): Observable<any> {
     return this.http.get<any>(this.apiUrl + '/tablets', {
       params: {
         page: page.toString(),
-        pageSize: pageSize.toString()
+        pageSize: pageSize.toString(),
+        days: days.toString(),
+        sort: sort
       }
     });
   }
 
-  getSmartwatches(page: number, pageSize: number): Observable<any> {
+  getSmartwatches(page: number, pageSize: number, days: number, sort: string): Observable<any> {
     return this.http.get<any>(this.apiUrl + '/smartwatches', {
       params: {
         page: page.toString(),
-        pageSize: pageSize.toString()
+        pageSize: pageSize.toString(),
+        days: days.toString(),
+        sort: sort
       }
     });
   }
 
-  getFitnessBracelets(page: number, pageSize: number): Observable<any> {
+  getFitnessBracelets(page: number, pageSize: number, days: number, sort: string): Observable<any> {
     return this.http.get<any>(this.apiUrl + '/fitness-bracelets', {
       params: {
         page: page.toString(),
-        pageSize: pageSize.toString()
+        pageSize: pageSize.toString(),
+        days: days.toString(),
+        sort: sort
       }
     });
   }
 
-  getWirelessHeadphones(page: number, pageSize: number): Observable<any> {
+  getWirelessHeadphones(page: number, pageSize: number, days: number, sort: string): Observable<any> {
     return this.http.get<any>(this.apiUrl + '/wireless-headphones', {
       params: {
         page: page.toString(),
-        pageSize: pageSize.toString()
+        pageSize: pageSize.toString(),
+        days: days.toString(),
+        sort: sort
       }
     });
   }
 
-  getGames(platform: string, page: number, pageSize: number): Observable<any> {
+  getGames(platform: string, page: number, pageSize: number, days: number, sort: string): Observable<any> {
     return this.http.get<any>(this.apiUrl + '/games', {
       params: {
         platform: platform || '',
         page: page.toString(),
-        pageSize: pageSize.toString()
+        pageSize: pageSize.toString(),
+        days: days.toString(),
+        sort: sort
       }
     });
   }
 
-  getManga(page: number, pageSize: number): Observable<any> {
+  getManga(page: number, pageSize: number, days: number, sort: string): Observable<any> {
     return this.http.get<any>(this.apiUrl + '/manga', {
       params: {
         page: page.toString(),
-        pageSize: pageSize.toString()
+        pageSize: pageSize.toString(),
+        days: days.toString(),
+        sort: sort
       }
     });
   }

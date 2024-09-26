@@ -4,11 +4,12 @@ import { Product } from '../../../models/product.model';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-smartwatch-list',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, RouterOutlet],
+  imports: [CommonModule, RouterLink, RouterLinkActive, RouterOutlet, FormsModule],
   templateUrl: './smartwatch-list.component.html',
   styleUrl: './smartwatch-list.component.css'
 })
@@ -18,6 +19,8 @@ export class SmartwatchListComponent implements OnInit {
   productsPerPage: number = 60;
   totalProducts: number = 0;
   itemsPerPageOptions: number[] = [12, 24, 48, 60];
+  selectedDays: number = 7;
+  selectedSort: string = '';
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute,
@@ -37,7 +40,7 @@ get totalPages(): number {
 }
 
   loadProducts(): void {
-    this.productService.getSmartwatches(this.currentPage, this.productsPerPage).subscribe({
+    this.productService.getSmartwatches(this.currentPage, this.productsPerPage, +this.selectedDays, this.selectedSort).subscribe({
       next: (response: any) => {
         this.products = response.products;
         this.totalProducts = response.totalCount;
@@ -50,18 +53,43 @@ get totalPages(): number {
     });
   }
 
-onPageChange(page: number): void {
-  this.currentPage = page;
-  this.router.navigate(['/smartwatch', page]);
-  this.loadProducts();
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.router.navigate(['/smartwatch', 
+    {
+      page: this.currentPage,
+      days: this.selectedDays,
+      sort: this.selectedSort
+    }]);
+    this.loadProducts();
+  }
+
+  onProductsPerPageChange(event: any): void {
+    this.productsPerPage = event.target.value;
+    this.currentPage = 1;
+    this.router.navigate(['/smartwatch', this.currentPage]);
+    this.loadProducts();
 }
 
-onProductsPerPageChange(event: any): void {
-  this.productsPerPage = event.target.value;
-  this.currentPage = 1;
-  this.router.navigate(['/smartwatch', this.currentPage]);
-  this.loadProducts();
-}
+  onDaysChange(): void {
+    this.currentPage = 1;
+    this.router.navigate(['/smartwatch', {
+      page: this.currentPage,
+      days: this.selectedDays,
+      sort: this.selectedSort
+    }]);
+    this.loadProducts();
+  }
+
+  onSortChange(): void {
+    this.currentPage = 1;
+    this.router.navigate(['/smartwatch', {
+      page: this.currentPage,
+      days: this.selectedDays,
+      sort: this.selectedSort
+    }]);
+    this.loadProducts();
+  }
 
 goToLink(url: string) {
   window.open(url, "_blank");
