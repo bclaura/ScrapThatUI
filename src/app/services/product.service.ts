@@ -92,14 +92,14 @@ export class ProductService {
     });
   }
 
-  getGames(platform: string, page: number, pageSize: number, days: number, sort: string): Observable<any> {
+  getGames(page: number, pageSize: number, days: number, sort: string, platform: string): Observable<any> {
     return this.http.get<any>(this.apiUrl + '/games', {
       params: {
-        platform: platform || '',
         page: page.toString(),
         pageSize: pageSize.toString(),
         days: days.toString(),
-        sort: sort
+        sort: sort,
+        platform: platform || ''
       }
     });
   }

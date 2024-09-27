@@ -136,6 +136,10 @@ export const routes: Routes = [
         component: GamesListComponent
     },
     {
+        path: 'games/p/:id',
+        component: ProductDetailComponent
+    },
+    {
         path: 'games/:page',
         component: GamesListComponent
     },
@@ -151,10 +155,6 @@ export const routes: Routes = [
         path: 'games',
         redirectTo: 'games/1',
         pathMatch: "full"
-    },
-    {
-        path: 'games/p/:id',
-        component: ProductDetailComponent
     },
     {
         path: 'manga',

@@ -4,6 +4,7 @@ import { NavbarComponent } from "./core/components/navbar/navbar.component";
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -14,7 +15,6 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     RouterLink,
     RouterLinkActive,
-    
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

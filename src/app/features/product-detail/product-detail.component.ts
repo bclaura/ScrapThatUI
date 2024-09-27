@@ -4,15 +4,20 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product.model';
 import { CommonModule, DatePipe } from '@angular/common';
+import { BaseChartDirective, provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import {Chart, registerables} from 'chart.js';
+Chart.register(...registerables)
+
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, BaseChartDirective],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.css',
-  providers: [DatePipe]
+  providers: [DatePipe, provideCharts(withDefaultRegisterables())]
 })
+
 export class ProductDetailComponent implements OnInit{
   priceHistory: ProductPriceHistory[] = [];
   productId?: number;
