@@ -1,19 +1,44 @@
-<div class="container">
-
-    <div *ngIf="product">
-        <h5 class="mt-4 text-center">{{product.name}}</h5>
-        <img class="m-3" [src]="product.image" alt="{{product.name}}" style="width: 25rem;">
-        <p class="mt-3" style="font-weight:500">Pret actual: {{product.price}} Lei</p>
+<div class="container mt-4">
+    <h2 class="m-4 text-center">{{product?.name}}</h2>
+    <div class="row align-items-center">
+      <!-- Left column for the product image -->
+      <div class="col-md-6 text-center">
+        <div *ngIf="product">
+          <img class="m-3" [src]="product.image" alt="{{product.name}}" style="max-width: 80%; height: auto;">
+          <p class="mt-3" style="font-weight:500">Pret actual: {{product.price}} Lei</p>
+        </div>
+      </div>
+  
+      <!-- Right column for the chart -->
+      <div class="col-md-6 text-center">
+        <div class="col-md-12 text-center">
+            <button class="btn btn-primary me-2 mb-2" (click)="selectedPeriod = 7" [ngClass]="{'active': selectedPeriod === 7}">7 Zile</button>
+            <button class="btn btn-primary me-2 mb-2" (click)="selectedPeriod = 30" [ngClass]="{'active': selectedPeriod === 30}">30 Zile</button>
+            <button class="btn btn-primary me-2 mb-2" (click)="selectedPeriod = 180" [ngClass]="{'active': selectedPeriod === 180}">6 Luni</button>
+            <button class="btn btn-primary me-2 mb-2" (click)="selectedPeriod = 360" [ngClass]="{'active': selectedPeriod === 360}">12 Luni</button>
+        </div>
+        <div *ngIf="product" style="width: 100%;">
+          <app-product-chart [productId]="productId!" [selectedPeriod]="selectedPeriod"></app-product-chart>
+        </div>
+      </div>
     </div>
-
-    <div *ngIf="priceHistory.length">
-        <h3>Istoricul pretului
-            <ul>
-                <li *ngFor="let history of priceHistory">
-                    {{history.dateChecked | date: 'dd/MM/yy'}}: {{history.price}} Lei
-                </li>
-            </ul>
-        </h3>
-
+  
+    <!-- Price History Section -->
+    <div *ngIf="priceHistory.length" class="m-4">
+        <p class="d-inline-flex gap-1">
+            <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Istoricul pretului
+            </button>
+          </p>
+          <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+                <ul>
+                    <li *ngFor="let history of priceHistory">
+                      {{history.dateChecked | date: 'dd/MM/yy'}}: {{history.price}} Lei
+                    </li>
+                  </ul>
+            </div>
+          </div>
     </div>
-</div>
+  </div>
+  

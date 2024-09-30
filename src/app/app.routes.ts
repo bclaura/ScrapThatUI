@@ -12,6 +12,7 @@ import { MangaListComponent } from './features/manga/manga-list/manga-list.compo
 import { NavbarComponent } from './core/components/navbar/navbar.component';
 import { SearchResultsComponent } from './core/components/search-results/search-results.component';
 import { NgModule } from '@angular/core';
+import { ProductChartComponent } from './core/components/product-chart/product-chart/product-chart.component';
 
 export const routes: Routes = [
     {
@@ -176,6 +177,10 @@ export const routes: Routes = [
     {
         path: 'search',
         component: SearchResultsComponent
+    },
+    {
+        path: 'product-chart',
+        component: ProductChartComponent
     }
 
 

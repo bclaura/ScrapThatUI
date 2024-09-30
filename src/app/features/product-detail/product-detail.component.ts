@@ -4,24 +4,24 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product.model';
 import { CommonModule, DatePipe } from '@angular/common';
-import { BaseChartDirective, provideCharts, withDefaultRegisterables } from 'ng2-charts';
-import {Chart, registerables} from 'chart.js';
-Chart.register(...registerables)
+import { ProductChartComponent } from '../../core/components/product-chart/product-chart/product-chart.component';
+
 
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule, BaseChartDirective],
+  imports: [CommonModule, ProductChartComponent],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.css',
-  providers: [DatePipe, provideCharts(withDefaultRegisterables())]
+  providers: [DatePipe]
 })
 
 export class ProductDetailComponent implements OnInit{
   priceHistory: ProductPriceHistory[] = [];
-  productId?: number;
-  product: Product | null = null;
+  productId!: number;
+  product: any;
+  selectedPeriod:number = 30;
   
 
   constructor(
@@ -37,15 +37,28 @@ export class ProductDetailComponent implements OnInit{
 
 
   ngOnInit(): void {
-    const productId = +this.route.snapshot.paramMap.get('id')!;
+    this.productId = +this.route.snapshot.paramMap.get('id')!;
+    console.log(this.productId);
 
-    this.productService.getProductDetails(productId).subscribe(data => {
-      this.product = data;
-    })
+    this.productService.getProductDetails(this.productId).subscribe({
+      next: (data) => {
+        console.log('Product Details:', data); // Check if product data is being fetched
+        this.product = data;
+      },
+      error: (err) => {
+        console.error('Error loading product details:', err);
+      }
+    });
 
-    this.productService.getProductPriceHistory(productId).subscribe(history => {
+  this.productService.getProductPriceHistory(this.productId).subscribe({
+    next: (history) => {
+      console.log('Price History:', history); // Check if price history is being fetched
       this.priceHistory = history;
-    })
-  }
+    },
+    error: (err) => {
+      console.error('Error loading price history:', err);
+    }
+  });
+}
 
 }
