@@ -61,6 +61,16 @@ export class ProductChartComponent implements OnInit {
     }
   }
 
+  /**
+   * Updates the time period for filtering chart data based on the specified number of days.
+   * 
+   * @param days - The number of days to filter the chart data. 
+   *               If days <= 30, filters data within the last 'days' days.
+   *               If days == 180, filters data within the last 6 months.
+   *               If days == 360, filters data within the last 12 months.
+   * 
+   * The method also creates a chart if the platform is a browser.
+   */
   updateTimePeriod(days: number):void {
     const now = new Date();
     if(days <= 30){
@@ -81,22 +91,53 @@ export class ProductChartComponent implements OnInit {
 
   }
 
+  /**
+   * Filters the product price history data to include only entries from the past specified number of months.
+   * Ensures that only one entry per month is included in the result.
+   *
+   * @param months - The number of months to filter the data by.
+   * @returns An array of `ProductPriceHistory` objects that fall within the specified number of months.
+   */
   filterByMonths( months: number): ProductPriceHistory[] {
     const now = new Date();
     const result: ProductPriceHistory[] = [];
     const seenMonths = new Set<string>();
+
+    let todayAdded = false;
+    let mostRecentEntry = null;
 
     for(const item of this.chartData) {
       const itemDate = new Date(item.dateChecked);
       const monthYear = `${itemDate.getMonth() + 1}-${itemDate.getFullYear()}`;
       const diffInMonths = (now.getFullYear() - itemDate.getFullYear()) * 12 + (now.getMonth() - itemDate.getMonth());
 
+      const isToday = itemDate.toDateString() === now.toDateString();
+
+      if (!mostRecentEntry || itemDate > mostRecentEntry.dateChecked) {
+        mostRecentEntry = item;
+    }
+
+    if (isToday) {
+      todayAdded = true;
+      continue;
+  }
+
       if (diffInMonths <= months && !seenMonths.has(monthYear)) {
         result.push(item);
         seenMonths.add(monthYear);
       }
     }
-      return result;
+
+    if (todayAdded) {
+      const todayEntry = this.chartData.find(item => new Date(item.dateChecked).toDateString() === now.toDateString());
+      if (todayEntry) {
+        result.push(todayEntry);
+      }
+    } else if (mostRecentEntry) {
+      result.push(mostRecentEntry);
+    }
+    
+    return result;
   }
 
   /**

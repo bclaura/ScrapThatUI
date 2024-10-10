@@ -21,6 +21,7 @@ export class TabletsListComponent implements OnInit {
   itemsPerPageOptions: number[] = [12, 24, 48, 60];
   selectedDays: number = 7;
   selectedSort: string = '';
+  isLoading = true;
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute,
@@ -44,11 +45,13 @@ export class TabletsListComponent implements OnInit {
         next: (response: any) => {
           this.products = response.products;
           this.totalProducts = response.totalCount;
+          this.isLoading = false;
         },
         error: (err) => {
           console.error('Error fetching products:', err);
           this.totalProducts = 0;
           this.products = [];
+          this.isLoading = false;
         }
       });
     }
@@ -65,6 +68,7 @@ export class TabletsListComponent implements OnInit {
     }
   
     onProductsPerPageChange(event: any): void {
+      this.isLoading = true;
       this.productsPerPage = event.target.value;
       this.currentPage = 1;
       this.router.navigate(['/tablets', this.currentPage]);
@@ -72,6 +76,7 @@ export class TabletsListComponent implements OnInit {
   }
   
     onDaysChange(): void {
+      this.isLoading = true;
       this.currentPage = 1;
       this.router.navigate(['/tablets', {
         page: this.currentPage,
@@ -82,6 +87,7 @@ export class TabletsListComponent implements OnInit {
     }
   
     onSortChange(): void {
+      this.isLoading = true;
       this.currentPage = 1;
       this.router.navigate(['/tablets', {
         page: this.currentPage,

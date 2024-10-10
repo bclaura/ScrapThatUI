@@ -24,4 +24,27 @@
   .neutral-change {
     background-color: gray;
   }
+
+  .product-container {
+    position: relative; 
+  }
+  
+  .spinner-overlay {
+    position: fixed; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    width: 100vw; 
+    height: 100vh; 
+    background-color: rgba(255, 255, 255, 0.8); 
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    z-index: 10; 
+  }
+  
+  .spinner-border {
+    width: 3rem;
+    height: 3rem;
+  }
   

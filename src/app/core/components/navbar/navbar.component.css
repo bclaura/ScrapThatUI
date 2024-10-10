@@ -1,0 +1,4 @@
+.navbar {
+    z-index: 20; /* Higher than the spinner overlay */
+    position: relative; /* Ensure it respects the z-index */
+}

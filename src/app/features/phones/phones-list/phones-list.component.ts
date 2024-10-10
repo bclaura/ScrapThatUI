@@ -21,6 +21,7 @@ export class PhonesListComponent implements OnInit {
   itemsPerPageOptions: number[] = [12, 24, 48, 60];
   selectedDays: number = 7;
   selectedSort: string = '';
+  isLoading = true;
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute,
@@ -45,11 +46,13 @@ export class PhonesListComponent implements OnInit {
       next: (response: any) => {
         this.products = response.products;
         this.totalProducts = response.totalCount;
+        this.isLoading = false;
       },
       error: (err) => {
         console.error('Error fetching products:', err);
         this.totalProducts = 0;
         this.products = [];
+        this.isLoading = false;
       }
     });
   }
@@ -66,6 +69,7 @@ export class PhonesListComponent implements OnInit {
   }
 
   onProductsPerPageChange(event: any): void {
+    this.isLoading = true;
     this.productsPerPage = event.target.value;
     this.currentPage = 1;
     this.router.navigate(['/phones', this.currentPage]);
@@ -73,6 +77,7 @@ export class PhonesListComponent implements OnInit {
 }
 
   onDaysChange(): void {
+    this.isLoading = true;
     this.currentPage = 1;
     this.router.navigate(['/phones', {
       page: this.currentPage,
@@ -83,6 +88,7 @@ export class PhonesListComponent implements OnInit {
   }
 
   onSortChange(): void {
+    this.isLoading  = true;
     this.currentPage = 1;
     this.router.navigate(['/phones', {
       page: this.currentPage,

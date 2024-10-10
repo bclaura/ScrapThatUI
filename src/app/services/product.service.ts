@@ -16,7 +16,7 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   getProducts(page: number, pageSize: number, days: number, sort: string): Observable<any> {
-    return this.http.get<any>(this.apiUrl, {
+    return this.http.get<any>(this.apiUrl + '?isActive=true', {
       params: {
         page: page.toString(),
         pageSize: pageSize.toString(),
@@ -27,7 +27,7 @@ export class ProductService {
   }
 
   getLaptops(page: number, pageSize: number, days: number, sort: string): Observable<any> {
-    return this.http.get<any>(this.apiUrl + '/laptops', {
+    return this.http.get<any>(this.apiUrl + '/laptops?isActive=true', {
       params: {
         page: page.toString(),
         pageSize: pageSize.toString(),
@@ -38,7 +38,7 @@ export class ProductService {
   }
 
   getPhones(page: number, pageSize: number, days: number, sort: string): Observable<any> {
-    return this.http.get<any>(this.apiUrl + '/phones', {
+    return this.http.get<any>(this.apiUrl + '/phones?isActive=true', {
       params: {
         page: page.toString(),
         pageSize: pageSize.toString(),

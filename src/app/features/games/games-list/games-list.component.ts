@@ -24,6 +24,7 @@ export class GamesListComponent implements OnInit {
   filteredProducts?: Product[];
   selectedDays: number = 7;
   selectedSort: string = '';
+  isLoading = true;
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute,
@@ -55,9 +56,11 @@ export class GamesListComponent implements OnInit {
         {
           this.products = response.products;
           this.totalProducts = response.totalCount;
+          this.isLoading = false;
         } else {
           this.products = [];
           this.totalProducts = 0;
+          this.isLoading = false;
         }
         this.filteredProducts = this.products;
         console.log('Filtered Products:', this.filteredProducts);
@@ -67,6 +70,7 @@ export class GamesListComponent implements OnInit {
         this.totalProducts = 0;
         this.filteredProducts = [];
         this.products = [];
+        this.isLoading = false;
       }
     });
   }
@@ -80,22 +84,26 @@ export class GamesListComponent implements OnInit {
 
 
   onProductsPerPageChange(event: any): void {
+    this.isLoading = true;
     this.productsPerPage = event.target.value;
     this.currentPage = 1; // Reset to first page
     this.navigateToCurrentState();
   }
 
   onDaysChange(): void {
+    this.isLoading = true;
     this.currentPage = 1;
     this.navigateToCurrentState();
   }
 
   onSortChange(): void {
+    this.isLoading = true;
     this.currentPage = 1;
     this.navigateToCurrentState();
   }
 
   onPlatformChange(): void {
+    this.isLoading = true;
     this.currentPage = 1;
     this.navigateToCurrentState();
   }
